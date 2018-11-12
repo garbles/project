@@ -48,6 +48,8 @@ yarn-error.log
 yarn.lock
 src`;
 
+const tsConfig = `{ "extends": "./node_modules/@garbles/project/tsconfig.json" }`;
+
 const init = () => {
   const pkg = path.join(cwd, "package.json");
   const json = require(pkg);
@@ -62,6 +64,7 @@ const init = () => {
   fs.writeFileSync(path.join(cwd, ".prettierrc"), prettierRc);
   fs.writeFileSync(path.join(cwd, ".gitignore"), gitIgnore);
   fs.writeFileSync(path.join(cwd, ".npmignore"), npmIgnore);
+  fs.writeFileSync(path.join(cwd, "tsconfig.json"), tsConfig);
   fs.writeFileSync(pkg, JSON.stringify(json, null, 2));
   fs.mkdirSync(path.join(cwd, "src"));
   fs.writeFileSync(path.join(cwd, "src", "index.ts"), "");
