@@ -64,6 +64,7 @@ const init = () => {
   fs.writeFileSync(path.join(cwd, ".npmignore"), npmIgnore);
   fs.writeFileSync(pkg, JSON.stringify(json, null, 2));
   fs.mkdirSync(path.join(cwd, "src"));
+  fs.writeFileSync(path.join(cwd, "src", "index.ts"), "");
 };
 
 const exec = (...cmds) => {
