@@ -1,6 +1,6 @@
 {
   "name": "@garbles/project",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Boilerplate",
   "main": "build/index.js",
   "repository": "https://github.com/garbles/project",
