@@ -46,7 +46,8 @@ build`;
 const npmIgnore = `.prettierrc
 yarn-error.log
 yarn.lock
-src`;
+src
+tsconfig.json`;
 
 const tsConfig = `{ "extends": "./node_modules/@garbles/project/tsconfig.json" }`;
 
