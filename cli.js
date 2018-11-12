@@ -48,6 +48,24 @@ yarn-error.log
 yarn.lock
 src`;
 
+const init = () => {
+  const pkg = path.join(cwd, "package.json");
+  const json = require(pkg);
+
+  json.scripts = json.scripts || {};
+
+  ["build", "test", "clean", "prepublish"].forEach(cmd => {
+    json.scripts[cmd] = json.scripts[cmd] || `project ${cmd}`;
+  });
+
+  fs.writeFileSync(path.join(cwd, "LICENSE"), LICENSE);
+  fs.writeFileSync(path.join(cwd, ".prettierrc"), prettierRc);
+  fs.writeFileSync(path.join(cwd, ".gitignore"), gitIgnore);
+  fs.writeFileSync(path.join(cwd, ".npmignore"), npmIgnore);
+  fs.writeFileSync(pkg, JSON.stringify(json, null, 2));
+  fs.mkdirSync(path.join(cwd, "src"));
+};
+
 const exec = (...cmds) => {
   cmds.forEach(cmd =>
     cp.spawnSync(cmd.base, cmd.args.concat(extras), {
@@ -84,11 +102,7 @@ const buildCmd = () => {
 
 switch (command) {
   case "init":
-    fs.writeFileSync(path.join(cwd, "LICENSE"), LICENSE);
-    fs.writeFileSync(path.join(cwd, ".prettierrc"), prettierRc);
-    fs.writeFileSync(path.join(cwd, ".gitignore"), gitIgnore);
-    fs.writeFileSync(path.join(cwd, ".npmignore"), npmIgnore);
-    fs.mkdirSync(path.join(cwd, "src"));
+    init();
     break;
   case "build":
     exec(cleanCmd(), buildCmd());
