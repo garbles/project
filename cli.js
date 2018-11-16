@@ -13,7 +13,7 @@ const jestConfig = require.resolve("./jest.config.js");
 const command = process.argv[2];
 const extras = process.argv.slice(3);
 
-const LICENSE = `Copyright ${new Date().getFullYear()} (c) Gabe Scholz
+const LICENSETmpl = `Copyright ${new Date().getFullYear()} (c) Gabe Scholz
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -35,21 +35,21 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 `;
 
-const prettierRc = `{
+const prettierRcTmpl = `{
   "printWidth": 100
 }`;
 
-const gitIgnore = `node_modules
+const gitIgnoreTmpl = `node_modules
 yarn-error.log
 build`;
 
-const npmIgnore = `.prettierrc
+const npmIgnoreTmpl = `.prettierrc
 yarn-error.log
 yarn.lock
 src
 tsconfig.json`;
 
-const tsConfig = `{ "extends": "./node_modules/@garbles/project/tsconfig.json" }`;
+const tsConfigTmpl = `{ "extends": "./node_modules/@garbles/project/tsconfig.json" }`;
 
 const init = () => {
   const pkg = path.join(cwd, "package.json");
@@ -61,11 +61,11 @@ const init = () => {
     json.scripts[cmd] = json.scripts[cmd] || `project ${cmd}`;
   });
 
-  fs.writeFileSync(path.join(cwd, "LICENSE"), LICENSE);
-  fs.writeFileSync(path.join(cwd, ".prettierrc"), prettierRc);
-  fs.writeFileSync(path.join(cwd, ".gitignore"), gitIgnore);
-  fs.writeFileSync(path.join(cwd, ".npmignore"), npmIgnore);
-  fs.writeFileSync(path.join(cwd, "tsconfig.json"), tsConfig);
+  fs.writeFileSync(path.join(cwd, "LICENSE"), LICENSETmpl);
+  fs.writeFileSync(path.join(cwd, ".prettierrc"), prettierRcTmpl);
+  fs.writeFileSync(path.join(cwd, ".gitignore"), gitIgnoreTmpl);
+  fs.writeFileSync(path.join(cwd, ".npmignore"), npmIgnoreTmpl);
+  fs.writeFileSync(path.join(cwd, "tsconfig.json"), tsConfigTmpl);
   fs.writeFileSync(pkg, JSON.stringify(json, null, 2));
   fs.mkdirSync(path.join(cwd, "src"));
   fs.writeFileSync(path.join(cwd, "src", "index.ts"), "");
